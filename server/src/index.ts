@@ -3,11 +3,13 @@ import { config } from "./config/base";
 import { apartmentsRouter } from "./services/apartments/apartments.routes";
 import { setUpSwagger } from "./utils/swagger";
 import { prismaConnect } from "./config/prisma.config";
+import { errorHandler } from "./middlewares/error-handlers";
 
 const app = express();
 app.use(express.json());
 
 app.use("/apartments", apartmentsRouter);
+app.use(errorHandler);
 
 app.listen(config.port, async () => {
   console.log(`listening on port ${config.port}`);
