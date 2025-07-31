@@ -24,3 +24,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer utilities {
+  .app-container {
+    @apply max-w-7xl mx-auto px-4 md:px-6 lg:px-8;
+  }
+
+  .card-link-container {
+    @apply relative overflow-hidden isolate;
+  }
+
+  .card-link {
+    @apply after:absolute after:inset-0 after:opacity-0;
+  }
+}
