@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { AppError, ZodValidationError } from "../utils/app-error";
 
 export function errorHandler(
   err: any,
@@ -6,13 +7,22 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
-  console.error(err.stack);
-
   const statusCode = err.statusCode || 500;
-  const message = err.message || "Something went wrong!";
 
-  res.status(statusCode).json({
+  const message =
+    process.env.NODE_ENV === "production"
+      ? "Internal server error"
+      : err.message || "Something went wrong!";
+
+  const response: Record<string, any> = {
     status: "error",
-    message: message,
-  });
+    message,
+    // ...(process.env.NODE_ENV !== "production" && { stack: err.stack }),
+  };
+
+  if (err instanceof ZodValidationError) {
+    response.validation = err.errors;
+  }
+
+  return res.status(statusCode).json(response);
 }

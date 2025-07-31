@@ -1,7 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { pathParams } from "./types";
+import { apartmentSchema, pathParams } from "./types";
 import { prisma } from "../../config/prisma.config";
-import { Apartments } from "@prisma/client";
+import { Apartments, Prisma } from "@prisma/client";
+import { AppError, ZodValidationError } from "../../utils/app-error";
+import z from "zod";
 
 export async function getApartments(
   req: Request,
@@ -26,6 +28,9 @@ export async function getApartment(
     const apartment = await prisma.apartments.findUniqueOrThrow({
       where: { id: Number(apartmentId) },
     });
+
+    if (!apartment) throw new AppError("Apartment not found", 404);
+
     return res.status(200).json(apartment);
   } catch (error) {
     next(error);
@@ -33,14 +38,22 @@ export async function getApartment(
 }
 
 export async function addApartment(
-  req: Request<any, any, Apartments, any>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    const apartment = await prisma.apartments.create({ data: req.body });
+    const data = apartmentSchema.safeParse(req.body);
+
+    if (!data.success) {
+      throw new ZodValidationError(z.flattenError(data.error));
+    }
+
+    const apartment = await prisma.apartments.create({ data: data.data });
+
     return res.status(201).json({ status: "success", data: apartment });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 }
@@ -66,9 +79,18 @@ export async function updateApartment(
 ) {
   try {
     const { apartmentId } = req.params;
+    const data = apartmentSchema.partial().safeParse(req.body);
+
+    if (!data.success) {
+      console.log(data.error);
+      console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLl");
+      console.log(z.flattenError(data.error));
+      throw new ZodValidationError(z.flattenError(data.error));
+    }
+
     const apartment = await prisma.apartments.update({
       where: { id: Number(apartmentId) },
-      data: req.body,
+      data: data.data,
     });
 
     return res.status(200).json({ status: "success", data: apartment });
