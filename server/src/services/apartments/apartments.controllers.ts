@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { pathParams } from "./types";
 
 export function getApartments(req: Request, res: Response) {
-  return [];
+  return res.status(200).send([]);
 }
 
 export function getApartment(req: Request<pathParams>, res: Response) {

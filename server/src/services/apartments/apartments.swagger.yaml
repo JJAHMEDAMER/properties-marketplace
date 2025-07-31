@@ -1,0 +1,255 @@
+tags:
+  - name: Apartments
+    description: Operations related to apartments
+paths:
+  /apartments:
+    get:
+      tags:
+        - Apartments
+      summary: Get all apartments
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Apartment"
+    post:
+      tags:
+        - Apartments
+      summary: Add a new apartment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApartmentInput"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Apartment"
+  /apartments/{apartmentId}:
+    get:
+      tags:
+        - Apartments
+      summary: Get an apartment by id
+      parameters:
+        - name: apartmentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Apartment"
+    delete:
+      tags:
+        - Apartments
+      summary: Delete an apartment by id
+      parameters:
+        - name: apartmentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Apartment"
+    put:
+      tags:
+        - Apartments
+      summary: Update an apartment by id
+      parameters:
+        - name: apartmentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApartmentInput"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Apartment"
+components:
+  schemas:
+    Apartment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        title:
+          type: string
+          example: "Cozy 2-bedroom loft"
+        description:
+          type: string
+          example: "A bright loft in downtown Cairo with river views."
+        address:
+          type: string
+          example: "123 Main St"
+        city:
+          type: string
+          example: "Cairo"
+        state:
+          type: string
+          example: "Cairo Governorate"
+        zipCode:
+          type: string
+          example: "11511"
+        country:
+          type: string
+          example: "Egypt"
+        lat:
+          type: number
+          format: float
+          example: 30.0444
+        lng:
+          type: number
+          format: float
+          example: 31.2357
+        price:
+          type: number
+          format: float
+          example: 1500.00
+        currency:
+          type: string
+          example: "EGP"
+        numberOfBedrooms:
+          type: integer
+          example: 2
+        numberOfBathrooms:
+          type: integer
+          example: 1
+        imageUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          example:
+            - "https://example.com/img1.jpg"
+            - "https://example.com/img2.jpg"
+        squareFootage:
+          type: integer
+          example: 850
+        isAvailable:
+          type: boolean
+          example: true
+        buildYear:
+          type: integer
+          example: 2018
+        contactEmail:
+          type: string
+          format: email
+          example: "owner@example.com"
+        contactPhone:
+          type: string
+          example: "+201012345678"
+      required:
+        - title
+        - address
+        - city
+        - price
+        - currency
+        - numberOfBedrooms
+        - numberOfBathrooms
+        - contactEmail
+
+    ApartmentInput:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Cozy 2-bedroom loft"
+        description:
+          type: string
+          example: "A bright loft in downtown Cairo with river views."
+        address:
+          type: string
+          example: "123 Main St"
+        city:
+          type: string
+          example: "Cairo"
+        state:
+          type: string
+          example: "Cairo Governorate"
+        zipCode:
+          type: string
+          example: "11511"
+        country:
+          type: string
+          example: "Egypt"
+        lat:
+          type: number
+          format: float
+          example: 30.0444
+        lng:
+          type: number
+          format: float
+          example: 31.2357
+        price:
+          type: number
+          format: float
+          example: 1500.00
+        currency:
+          type: string
+          example: "EGP"
+        numberOfBedrooms:
+          type: integer
+          example: 2
+        numberOfBathrooms:
+          type: integer
+          example: 1
+        imageUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          example:
+            - "https://example.com/img1.jpg"
+        squareFootage:
+          type: integer
+          example: 850
+        isAvailable:
+          type: boolean
+          example: true
+        buildYear:
+          type: integer
+          example: 2018
+        contactEmail:
+          type: string
+          format: email
+          example: "owner@example.com"
+        contactPhone:
+          type: string
+          example: "+201012345678"
+      required:
+        - title
+        - address
+        - city
+        - price
+        - currency
+        - numberOfBedrooms
+        - numberOfBathrooms
+        - contactEmail
