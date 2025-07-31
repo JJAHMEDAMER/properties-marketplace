@@ -8,6 +8,26 @@ datasource db {
 }
 
 model Apartments {
-  id String @id
-  price Int
+  id                String   @id
+  title             String
+  description       String?
+  address           String
+  city              String
+  state             String?
+  zipCode           String?
+  country           String   @default("Egypt")
+  lat               Float
+  lng               Float
+  price             Float
+  currency          String   @default("EGP")
+  numberOfBedrooms  Int
+  numberOfBathrooms Int
+  imageUrls         String[] @default([])
+  squareFootage     Int? // Optional, as not all listings might have this
+  isAvailable       Boolean  @default(true)
+  buildYear         Int?
+  contactEmail      String
+  contactPhone      String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
