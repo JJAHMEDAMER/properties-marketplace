@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Apartments {
-  id                String   @id
+  id                Int      @id @default(autoincrement())
   title             String
   description       String?
   address           String
@@ -23,7 +23,7 @@ model Apartments {
   numberOfBedrooms  Int
   numberOfBathrooms Int
   imageUrls         String[] @default([])
-  squareFootage     Int? // Optional, as not all listings might have this
+  squareFootage     Int?
   isAvailable       Boolean  @default(true)
   buildYear         Int?
   contactEmail      String
