@@ -30,3 +30,5 @@ services:
       - 5000:5000
     environment:
       - NODE_ENV=production
+      - port=5000
+      - database_url=postgresql://admin:password@localhost:5432/nawy?schema=public
