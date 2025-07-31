@@ -46,7 +46,7 @@ export async function addApartment(
     const data = apartmentSchema.safeParse(req.body);
 
     if (!data.success) {
-      throw new ZodValidationError(z.flattenError(data.error));
+      throw new ZodValidationError(data.error);
     }
 
     const apartment = await prisma.apartments.create({ data: data.data });
@@ -82,10 +82,7 @@ export async function updateApartment(
     const data = apartmentSchema.partial().safeParse(req.body);
 
     if (!data.success) {
-      console.log(data.error);
-      console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLl");
-      console.log(z.flattenError(data.error));
-      throw new ZodValidationError(z.flattenError(data.error));
+      throw new ZodValidationError(data.error);
     }
 
     const apartment = await prisma.apartments.update({

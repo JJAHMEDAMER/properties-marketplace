@@ -1,4 +1,4 @@
-import z, { flattenError } from "zod";
+import z from "zod";
 
 export class AppError extends Error {
   statusCode: number;
@@ -16,8 +16,8 @@ export class AppError extends Error {
 export class ZodValidationError extends AppError {
   errors: ReturnType<typeof z.flattenError>;
 
-  constructor(errors: ReturnType<typeof z.flattenError>) {
+  constructor(errors: any) {
     super("Validation Error", 400);
-    this.errors = errors;
+    this.errors = z.flattenError(errors);
   }
 }
