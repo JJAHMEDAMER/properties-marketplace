@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import { pathParams } from "./types";
+import { prisma } from "../../config/prisma.config";
 
-export function getApartments(req: Request, res: Response) {
-  return res.status(200).send([]);
+export async function getApartments(req: Request, res: Response) {
+  const apartments = await prisma.apartments.findMany();
+  return res.status(200).send(apartments);
 }
 
 export function getApartment(req: Request<pathParams>, res: Response) {
