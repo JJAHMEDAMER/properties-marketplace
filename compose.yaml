@@ -8,7 +8,25 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: admin
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready -U admin -d postgres"]
       interval: 1s
       timeout: 5s
       retries: 10
+  web-app:
+    build:
+      context: web-app
+      dockerfile: Dockerfile
+    container_name: web-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+  server:
+    build:
+      context: server
+      dockerfile: Dockerfile
+    container_name: server
+    ports:
+      - 5000:5000
+    environment:
+      - NODE_ENV=production
