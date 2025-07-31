@@ -11,7 +11,5 @@ export async function setUpSwagger(app: Express) {
     res.status(200).json(swaggerSpec);
   });
 
-  console.log(
-    `Swagger docs available on http://localhost:${config.port}/api-docs`
-  );
+  console.log(`Swagger docs available on http://localhost:${config.port}/docs`);
 }

@@ -32,7 +32,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Apartment"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    $ref: "#/components/schemas/Apartment"
   /apartments/{apartmentId}:
     get:
       tags:
@@ -67,7 +73,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Apartment"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
     put:
       tags:
         - Apartments
@@ -90,7 +100,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Apartment"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    $ref: "#/components/schemas/Apartment"
 components:
   schemas:
     Apartment:
