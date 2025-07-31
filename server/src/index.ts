@@ -1,11 +1,12 @@
 import express from "express";
+import { config } from "./config/base";
+import { apartmentsRouter } from "./services/apartments/apartments.routes";
 
 const app = express();
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/apartments", apartmentsRouter);
 
-app.listen(3000, () => {
-  console.log("Example app listening on port 3000!");
+app.listen(config.port, () => {
+  console.log(`listening on port ${config.port}`);
 });
