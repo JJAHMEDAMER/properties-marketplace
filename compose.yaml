@@ -1,34 +1,45 @@
+version: "3.8"
 services:
   postgres:
+    container_name: nawy-postgres
+    image: postgres:latest
     restart: always
-    image: postgres
     ports:
       - "5432:5432"
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_USER: admin
+      POSTGRES_DB: nawy
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d postgres"]
-      interval: 1s
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nawy"]
+      interval: 5s
       timeout: 5s
-      retries: 10
+      retries: 5
+
+  server:
+    container_name: nawy-server
+    build:
+      context: server
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/nawy?schema=public
+
   web-app:
+    container_name: nawy-web-app
     build:
       context: web-app
       dockerfile: Dockerfile
-    container_name: web-app
+    depends_on:
+      server:
+        condition: service_started
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-  server:
-    build:
-      context: server
-      dockerfile: Dockerfile
-    container_name: server
-    ports:
-      - 5000:5000
-    environment:
-      - NODE_ENV=production
-      - port=5000
-      - database_url=postgresql://admin:password@localhost:5432/nawy?schema=public
