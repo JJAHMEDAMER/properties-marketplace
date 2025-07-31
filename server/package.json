@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npx prisma migrate dev && nodemon --watch src --ext swagger.yaml,ts,tsx --exec ts-node src/index.ts",
     "build": "rm -rf dist && tsc && cpx **/*.yaml dist",
-    "serve": "node dist/src/index.js",
+    "serve": "npx prisma migrate dev && node dist/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -8,13 +8,11 @@ export async function prismaConnect() {
     await prisma.$connect();
     console.log("prisma connected");
 
-    const apartments = await prisma.apartments.findMany();
-    if (apartments.length === 0) {
-      await populateDb();
-      console.log(
-        "db populated with fake data from 'server/src/utils/populatedb.ts'"
-      );
-    }
+    await prisma.apartments.deleteMany();
+    await populateDb();
+    console.log(
+      "db populated with fake data from 'server/src/utils/populatedb.ts'"
+    );
   } catch (error) {
     console.log("prisma not connected");
     console.log(error);
