@@ -1,3 +1,5 @@
+import { Apartments, Prisma } from "@prisma/client";
+
 export type pathParams = {
-  apartment: string;
+  apartmentId: Apartments["id"];
 };
