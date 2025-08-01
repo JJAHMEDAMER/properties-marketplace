@@ -1,7 +1,7 @@
-"use client"; // This directive makes this a Client Component
+"use client";
 
 import React, { useState } from "react";
-import { Edit, XCircle } from "lucide-react"; // Icons for edit, delete, close modal
+import { Edit, XCircle } from "lucide-react";
 import { Apartment } from "@/types/models";
 import DeleteApartmentButton from "./DeleteApartmentButton";
 
@@ -13,7 +13,7 @@ export default function ApartmentActions({ apartment }: ApartmentActionsProps) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [formData, setFormData] = useState<Partial<Apartment>>(apartment); // Initialize form with current apartment data
+  const [formData, setFormData] = useState<Partial<Apartment>>(apartment);
 
   const handleFormChange = (
     e: React.ChangeEvent<
