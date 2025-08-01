@@ -4,8 +4,11 @@ import { apartmentsRouter } from "./services/apartments/apartments.routes";
 import { setUpSwagger } from "./utils/swagger";
 import { prismaConnect } from "./config/prisma.config";
 import { errorHandler } from "./middlewares/error-handlers";
+import { corsMiddleware } from "./middlewares/cors.middleware";
 
 const app = express();
+app.use(corsMiddleware);
+
 app.use(express.json());
 
 app.use("/apartments", apartmentsRouter);
