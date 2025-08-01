@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="bg-[var(--background)] text-[var(--foreground)] border-b border-gray-200 dark:border-gray-800">
+    <header className="border-b border-gray-200 dark:border-gray-800">
       <div className="app-container flex justify-between items-center py-4">
         <div className="text-xl font-bold text-[var(--accent)]">
           🏠 MyRealEstate

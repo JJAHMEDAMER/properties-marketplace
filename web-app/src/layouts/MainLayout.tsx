@@ -1,3 +1,4 @@
+import Footer from "@/shared/Footer";
 import Header from "@/shared/Header";
 import React from "react";
 
@@ -10,6 +11,7 @@ export default function MainLayout({
     <div>
       <Header />
       <main>{children}</main>
+      <Footer />
     </div>
   );
 }
