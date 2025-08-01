@@ -1,6 +1,6 @@
-import ApartmentDetailspage from "@/modules/apartments/ApartmentDetailspage";
+import ApartmentDetailspage from "@/modules/apartments/ApartmentDetails/ApartmentDetailsPage";
 import React from "react";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import { getApartment } from "@/api/apartments";
 
 type Props = {

@@ -9,12 +9,12 @@ import {
   Calendar,
   Check,
   X,
-  Star,
 } from "lucide-react";
 import { getApartment } from "@/api/apartments";
 import Carousel from "./components/Carousel";
-import ApartmentActions from "./components/ApartmentActions";
 import { Apartment } from "@/types/models";
+import EditApartmentListing from "./components/EditApartmentListing";
+import DeleteApartmentButton from "./components/DeleteApartmentButton";
 
 type Props = {
   apartmentId: Apartment["id"];
@@ -46,8 +46,17 @@ export default async function ApartmentDetailsPage({ apartmentId }: Props) {
             <p className="text-[clamp(1.125rem,2vw,1.25rem)] text-gray-700 max-w-lg">
               {apartment.description?.substring(0, 150)}...
             </p>
-            <div>
-              <ApartmentActions apartment={apartment} />
+
+            <div className="flex items-center gap-4">
+              <a
+                href="#contact-section"
+                className="inline-flex cursor-pointer items-center justify-center px-6 py-3 border border-indigo-600 text-base font-medium rounded-full shadow-md  text-white bg-indigo-600 hover:bg-indigo-700transition-all duration-300 ease-in-out hover:shadow-lg"
+              >
+                Contact Agent
+              </a>
+
+              <EditApartmentListing apartment={apartment} />
+              <DeleteApartmentButton apartmentId={apartment.id} />
             </div>
           </div>
 

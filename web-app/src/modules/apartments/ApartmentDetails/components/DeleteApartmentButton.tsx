@@ -17,7 +17,6 @@ export default function DeleteApartmentButton({
     setIsDeleting(true);
     try {
       await deleteApartment(apartmentId);
-      console.log(`Apartment ${apartmentId} deleted successfully.`);
       router.push("/apartments");
     } catch (err: any) {
       setIsDeleting(false);
