@@ -1,5 +1,5 @@
-import ApartmentsPage from "@/modules/apartments/ApartmentsPage";
+import LandingPage from "@/modules/landing/LandingPage";
 
 export default function Home() {
-  return <ApartmentsPage />;
+  return <LandingPage />;
 }
