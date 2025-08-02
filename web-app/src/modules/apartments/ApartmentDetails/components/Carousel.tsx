@@ -1,23 +1,21 @@
 "use client";
 import React from "react";
 import { Apartment } from "@/types/models";
-import {
-  Tag,
-  Maximize2,
-  Image as ImageIcon,
-  Star,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { Image as ImageIcon, ChevronLeft, ChevronRight } from "lucide-react";
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Image from "next/image";
+
+type swiperRef = {
+  swiper: SwiperClass;
+};
 
 export default function Carousel({ apartment }: { apartment: Apartment }) {
-  const swiperRef = React.useRef<any>(null);
+  const swiperRef = React.useRef<swiperRef | null>(null);
 
   const goNext = () => {
     if (swiperRef.current) swiperRef.current.swiper.slideNext();
@@ -40,7 +38,8 @@ export default function Carousel({ apartment }: { apartment: Apartment }) {
           {apartment.imageUrls.map((url, idx) => (
             <SwiperSlide key={idx}>
               <div className="relative aspect-video w-full">
-                <img
+                <Image
+                  fill
                   src={url}
                   alt={`Apartment image ${idx + 1}`}
                   className="object-cover w-full h-full rounded-2xl"

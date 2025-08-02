@@ -18,7 +18,7 @@ export default function DeleteApartmentButton({
     try {
       await deleteApartment(apartmentId);
       router.push("/apartments");
-    } catch (err: any) {
+    } catch {
       setIsDeleting(false);
     }
   };

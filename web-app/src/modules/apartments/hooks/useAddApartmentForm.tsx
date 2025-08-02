@@ -6,7 +6,7 @@ export function useAddApartmentForm(initialValues?: Apartment) {
   const {
     register,
     handleSubmit,
-    formState: { errors, disabled, isSubmitting, isValid, isValidating },
+    formState: { errors, disabled, isSubmitting, isValid },
   } = useForm<Apartment>({
     ...(initialValues ? { defaultValues: initialValues } : {}),
     mode: "onTouched",

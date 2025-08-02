@@ -1,6 +1,7 @@
 import { Apartment } from "@/types/models";
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 type props = {
   apartment: Apartment;
@@ -8,7 +9,9 @@ type props = {
 export default function ApartmentCard({ apartment }: props) {
   return (
     <div className="card-link-container rounded-2xl overflow-hidden shadow-lg bg-white dark:bg-neutral-900 transition-all border border-gray-200 dark:border-neutral-800">
-      <img
+      <Image
+        width={500}
+        height={500}
         className="w-full h-48 object-cover"
         src={apartment.imageUrls[0]}
         alt={apartment.title}

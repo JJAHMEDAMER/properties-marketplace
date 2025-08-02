@@ -1,6 +1,5 @@
 import React from "react";
 import { ThemeToggle } from "@/shared/atoms/ThemeToggle";
-import Link from "next/link";
 import LargeScreenNav from "./LargeScreenNav";
 import SmallScreenNavMenu from "./SmallScreenNavMenu";
 
