@@ -56,6 +56,8 @@ export async function getApartments(
       orderBy: validatedFilters.sortBy
         ? { [validatedFilters.sortBy]: validatedFilters.order || "asc" }
         : undefined,
+      skip: ((validatedFilters.page || 1) - 1) * 10,
+      take: 10,
     });
 
     return res.status(200).json(apartments);

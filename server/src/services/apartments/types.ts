@@ -6,6 +6,14 @@ export type pathParams = {
 };
 
 export const apartmentFilterSchema = z.object({
+  page: z.preprocess(
+    (val) => (val ? parseInt(String(val), 10) : undefined),
+    z
+      .number()
+      .int()
+      .positive("Page number must be a positive integer.")
+      .optional()
+  ),
   city: z.string().optional(),
   numberOfBedrooms: z.preprocess(
     (val) => (val ? parseInt(String(val), 10) : undefined),

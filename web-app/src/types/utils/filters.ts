@@ -7,4 +7,5 @@ export type ApartmentFilters = Partial<{
   maxPrice: number;
   sortBy: "price" | "createdAt" | "numberOfBedrooms";
   order: "asc" | "desc";
+  page: number;
 }>;
