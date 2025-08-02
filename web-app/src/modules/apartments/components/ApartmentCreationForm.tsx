@@ -9,6 +9,7 @@ import { Apartment } from "@/types/models";
 import { createApartment, updateApartment } from "@/api/apartments";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
+import FileUpload from "@/shared/atoms/FileUpload";
 
 type ApartmentCreationFormProps = {
   apartment?: Apartment;
@@ -175,13 +176,11 @@ export default function ApartmentCreationForm({
         />
       </div>
 
-      {/* Image URLs */}
-      {/* <AppInput
-        label="Image URLs (comma-separated)"
-        placeholder="https://example.com/img1.jpg, https://example.com/img2.jpg"
-        {...registers.imageUrls}
-        error={errors.imageUrls?.message}
-      /> */}
+      <FileUpload
+        label="Image"
+        imageProps={registers.image}
+        error={errors.image?.message}
+      />
 
       {/* Is Available */}
       <label className="flex cursor-pointer items-center space-x-3">
