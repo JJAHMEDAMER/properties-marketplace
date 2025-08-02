@@ -1,4 +1,4 @@
-import AddApartmentPage from "@/modules/apartments/AddApartmentPage";
+import { AddApartmentPage } from "@/modules/apartments/AddApartment/AddApartmentPage";
 import { Metadata } from "next";
 import React from "react";
 
