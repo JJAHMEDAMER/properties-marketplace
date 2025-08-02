@@ -22,12 +22,27 @@ export async function getApartment(id: Apartment["id"]) {
   return apartment;
 }
 
-export async function createApartment(apartment: Apartment) {
+export async function createApartment(
+  apartment: Apartment & { image: FileList }
+) {
+  const { image, ...restOfApartmentData } = apartment;
+
+  const formData = new FormData();
+  Object.entries(restOfApartmentData).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      formData.append(key, String(value));
+    }
+  });
+
+  if (image) {
+    formData.append("image", image[0], image[0].name); // 'image' is the field name on the server
+  }
+
   const res = await fetch(`${baseUrl}/apartments`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(apartment),
+    body: formData,
   });
+
   const newApartment: { status: string; data: Apartment } = await res.json();
   return newApartment;
 }

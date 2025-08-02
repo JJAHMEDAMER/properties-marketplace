@@ -2,12 +2,14 @@
 import { Apartment } from "@/types/models";
 import { useForm } from "react-hook-form";
 
+type ApartmentInput = Apartment & { image?: File | null };
+
 export function useAddApartmentForm(initialValues?: Apartment) {
   const {
     register,
     handleSubmit,
     formState: { errors, disabled, isSubmitting, isValid },
-  } = useForm<Apartment>({
+  } = useForm<ApartmentInput>({
     ...(initialValues ? { defaultValues: initialValues } : {}),
     mode: "onTouched",
   });
@@ -96,6 +98,8 @@ export function useAddApartmentForm(initialValues?: Apartment) {
   });
   const contactPhone = register("contactPhone");
 
+  const image = register("image", { required: "Image is required" });
+
   return {
     register,
     handleSubmit,
@@ -113,6 +117,7 @@ export function useAddApartmentForm(initialValues?: Apartment) {
     currency,
     numberOfBedrooms,
     numberOfBathrooms,
+    image,
     // imageUrls,
     squareFootage,
     isAvailable,
