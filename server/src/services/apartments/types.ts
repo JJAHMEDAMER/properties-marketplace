@@ -4,6 +4,42 @@ import z from "zod";
 export type pathParams = {
   apartmentId: Apartments["id"];
 };
+
+export const apartmentFilterSchema = z.object({
+  city: z.string().optional(),
+  numberOfBedrooms: z.preprocess(
+    (val) => (val ? parseInt(String(val), 10) : undefined),
+    z
+      .number()
+      .int()
+      .positive("Number of bedrooms must be a positive integer.")
+      .optional()
+  ),
+  squareFootage: z.preprocess(
+    (val) => (val ? parseInt(String(val), 10) : undefined),
+    z
+      .number()
+      .int()
+      .positive("Square footage must be a positive integer.")
+      .optional()
+  ),
+  isAvailable: z.preprocess((val) => {
+    if (val === "true") return true;
+    if (val === "false") return false;
+    return undefined;
+  }, z.boolean().optional()),
+  minPrice: z.preprocess(
+    (val) => (val ? parseFloat(String(val)) : undefined),
+    z.number().positive("Minimum price must be a positive number.").optional()
+  ),
+  maxPrice: z.preprocess(
+    (val) => (val ? parseFloat(String(val)) : undefined),
+    z.number().positive("Maximum price must be a positive number.").optional()
+  ),
+  sortBy: z.enum(["price", "createdAt", "numberOfBedrooms"]).optional(),
+  order: z.enum(["asc", "desc"]).optional(),
+});
+
 export const apartmentSchema = z.object({
   title: z.string({
     error: (iss) =>
