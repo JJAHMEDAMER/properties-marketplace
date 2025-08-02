@@ -5,6 +5,24 @@ export type pathParams = {
   apartmentId: Apartments["id"];
 };
 
+export const multerFileSchema = z.object({
+  fieldname: z.string(),
+  originalname: z.string(),
+  encoding: z.string(),
+  mimetype: z
+    .string()
+    .refine((mimetype) => mimetype.startsWith("image/"), {
+      message: "Only image files are allowed",
+    })
+    .optional(),
+  size: z.number().max(5 * 1024 * 1024, {
+    message: "File size must be less than 5MB",
+  }), // Max 5MB
+  destination: z.string(),
+  filename: z.string(),
+  path: z.string(),
+});
+
 export const apartmentFilterSchema = z.object({
   page: z.preprocess(
     (val) => (val ? parseInt(String(val), 10) : undefined),
@@ -95,7 +113,7 @@ export const apartmentSchema = z.object({
           : "Country must be a string",
     })
     .default("Egypt"),
-  lat: z
+  lat: z.coerce
     .number({
       error: (iss) =>
         iss.input === undefined
@@ -103,7 +121,7 @@ export const apartmentSchema = z.object({
           : "Latitude must be a number",
     })
     .positive("Must be a positive number"),
-  lng: z
+  lng: z.coerce
     .number({
       error: (iss) =>
         iss.input === undefined
@@ -111,7 +129,7 @@ export const apartmentSchema = z.object({
           : "Longitude must be a number",
     })
     .positive("Must be a positive number"),
-  price: z
+  price: z.coerce
     .number({
       error: (iss) =>
         iss.input === undefined
@@ -127,7 +145,7 @@ export const apartmentSchema = z.object({
           : "Currency must be a string",
     })
     .default("EGP"),
-  numberOfBedrooms: z
+  numberOfBedrooms: z.coerce
     .number({
       error: (iss) =>
         iss.input === undefined
@@ -136,7 +154,7 @@ export const apartmentSchema = z.object({
     })
     .int("Must be an integer")
     .min(0, "Must be at least 0"),
-  numberOfBathrooms: z
+  numberOfBathrooms: z.coerce
     .number({
       error: (iss) =>
         iss.input === undefined
@@ -145,8 +163,7 @@ export const apartmentSchema = z.object({
     })
     .int("Must be an integer")
     .min(0, "Must be at least 0"),
-  imageUrls: z.array(z.string().url()).default([]),
-  squareFootage: z
+  squareFootage: z.coerce
     .number({
       error: (iss) =>
         iss.input === undefined
@@ -156,7 +173,7 @@ export const apartmentSchema = z.object({
     .int("Must be an integer")
     .positive("Must be a positive number")
     .optional(),
-  isAvailable: z
+  isAvailable: z.coerce
     .boolean({
       error: (iss) =>
         iss.input === undefined
@@ -164,7 +181,7 @@ export const apartmentSchema = z.object({
           : "Availability flag must be a boolean",
     })
     .default(true),
-  buildYear: z
+  buildYear: z.coerce
     .number({
       error: (iss) =>
         iss.input === undefined

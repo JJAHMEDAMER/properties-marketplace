@@ -1,7 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { apartmentFilterSchema, apartmentSchema, pathParams } from "./types";
+import {
+  apartmentFilterSchema,
+  apartmentSchema,
+  multerFileSchema,
+  pathParams,
+} from "./types";
 import { prisma } from "../../config/prisma.config";
-import { Apartments, Prisma } from "@prisma/client";
+import { Apartments } from "@prisma/client";
 import { AppError, ZodValidationError } from "../../utils/app-error";
 import z from "zod";
 
@@ -85,11 +90,20 @@ export async function getApartment(
   }
 }
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
 export async function addApartment(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
+  console.log(req.file);
   try {
     const data = apartmentSchema.safeParse(req.body);
 
@@ -97,7 +111,16 @@ export async function addApartment(
       throw new ZodValidationError(data.error);
     }
 
-    const apartment = await prisma.apartments.create({ data: data.data });
+    const image = multerFileSchema.safeParse(req.file);
+    if (!image.success) {
+      throw new ZodValidationError(image.error);
+    }
+
+    const imageUrl = `http://${"localhost:3000"}/uploads/${image.data.originalname}`;
+
+    const apartment = await prisma.apartments.create({
+      data: { ...data.data, imageUrls: [imageUrl] },
+    });
 
     return res.status(201).json({ status: "success", data: apartment });
   } catch (error) {

@@ -6,11 +6,12 @@ import {
   getApartments,
   updateApartment,
 } from "./apartments.controllers";
+import { upload } from "../../middlewares/multer.middleware";
 
 export const apartmentsRouter = Router();
 
 apartmentsRouter.get("/", getApartments);
-apartmentsRouter.post("/", addApartment);
+apartmentsRouter.post("/", upload, addApartment);
 apartmentsRouter.get("/:apartmentId", getApartment);
 apartmentsRouter.delete("/:apartmentId", deleteApartment);
 apartmentsRouter.put("/:apartmentId", updateApartment);
