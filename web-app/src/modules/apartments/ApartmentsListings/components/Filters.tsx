@@ -11,13 +11,17 @@ type Props = {
 
 export function Filters({ filters, setFilters }: Props) {
   return (
-    <div className="app-container flex h-48 items-end">
-      <div>
+    <div className="app-container gap-4 flex-col md:flex-row flex h-48 items-end">
+      <div className="w-full md:w-64">
         <MinMaxPrice filters={filters} setFilters={setFilters} />
       </div>
-      <div className="ms-auto flex flex-col items-end space-y-2">
-        <Order filters={filters} setFilters={setFilters} />
-        <SortBy filters={filters} setFilters={setFilters} />
+      <div className="ms-auto w-full flex flex-col items-end space-y-2">
+        <div className="w-full md:w-fit">
+          <Order filters={filters} setFilters={setFilters} />
+        </div>
+        <div className="w-full md:w-64">
+          <SortBy filters={filters} setFilters={setFilters} />
+        </div>
       </div>
     </div>
   );
@@ -84,14 +88,14 @@ function SortBy({ filters, setFilters }: Props) {
 }
 function Order({ filters, setFilters }: Props) {
   return (
-    <div className="flex gap-1 w-fit items-center bg-zinc-100 dark:bg-zinc-900 p-1 rounded-xl border border-zinc-200 dark:border-zinc-700">
+    <div className="flex gap-1 w-full md:w-fit items-center bg-zinc-100 dark:bg-zinc-900 p-1 rounded-xl border border-zinc-200 dark:border-zinc-700">
       <span
         onClick={() => setFilters({ ...filters, order: "asc" })}
         className={`${
           filters.order === "asc"
             ? "bg-zinc-300 text-zinc-900 dark:bg-zinc-700 dark:text-white"
             : "bg-white text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
-        } cursor-pointer flex text-xs items-center gap-2 p-2 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700`}
+        } cursor-pointer flex flex-1 text-xs items-center gap-2 p-2 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700`}
       >
         <ArrowUp size={14} /> Ascending
       </span>
@@ -101,7 +105,7 @@ function Order({ filters, setFilters }: Props) {
           filters.order === "desc"
             ? "bg-zinc-300 text-zinc-900 dark:bg-zinc-700 dark:text-white"
             : "bg-white text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
-        } cursor-pointer flex text-xs items-center gap-2 p-2 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700`}
+        } cursor-pointer flex flex-1 text-xs items-center gap-2 p-2 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-700`}
       >
         <ArrowDown size={14} /> Descending
       </span>
