@@ -11,10 +11,12 @@ import { useRouter } from "next/navigation";
 
 type ApartmentCreationFormProps = {
   apartment?: Apartment;
+  onSubmit?: () => void;
 };
 
 export default function ApartmentCreationForm({
   apartment,
+  onSubmit,
 }: ApartmentCreationFormProps) {
   const router = useRouter();
   const { handleSubmit, errors, isDisabled, isSubmitting, ...registers } =
@@ -24,6 +26,7 @@ export default function ApartmentCreationForm({
     if (apartment) {
       await updateApartment(data);
       router.refresh();
+      onSubmit?.();
     } else {
       const { data: apartment } = await createApartment(data);
       router.push("/apartments/" + apartment.id);

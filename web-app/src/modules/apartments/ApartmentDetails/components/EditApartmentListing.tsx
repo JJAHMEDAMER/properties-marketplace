@@ -22,7 +22,10 @@ export default function EditApartmentListing({
         Edit Listing
       </button>
       <Modal open={open} onClose={() => setOpen(false)}>
-        <ApartmentCreationForm apartment={apartment} />
+        <ApartmentCreationForm
+          onSubmit={() => setOpen(false)}
+          apartment={apartment}
+        />
       </Modal>
     </>
   );
