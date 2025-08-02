@@ -25,7 +25,7 @@ export function Filters({ filters, setFilters }: Props) {
 
 function MinMaxPrice({ filters, setFilters }: Props) {
   const [minMaxValue, setMinMaxValue] = React.useState<[number, number]>([
-    filters.minPrice || 0,
+    filters.minPrice || 1,
     filters.maxPrice || 5_000,
   ]);
 
