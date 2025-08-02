@@ -19,7 +19,7 @@ export function Select({ value, onSelect, options }: SelectProps) {
           setOpen(false);
         }
       }}
-      className="relative inline-block w-64"
+      className="relative inline-block w-full"
     >
       <button
         onClick={() => setOpen((prev) => !prev)}
