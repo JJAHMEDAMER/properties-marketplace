@@ -11,10 +11,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "randomuser.me",
       },
-      {
-        protocol: "http",
-        hostname: "localhost",
-      },
+      // {
+      //   protocol: "http",
+      //   hostname: "localhost",
+      // },
       {
         protocol: "http",
         hostname: "server",
