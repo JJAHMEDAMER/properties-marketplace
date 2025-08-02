@@ -8,6 +8,12 @@ paths:
         - Apartments
       summary: Get all apartments
       parameters:
+        - name: searchTerm
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search term (case-insensitive contains)
         - name: city
           in: query
           required: false
