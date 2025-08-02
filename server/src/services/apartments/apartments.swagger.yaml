@@ -7,6 +7,71 @@ paths:
       tags:
         - Apartments
       summary: Get all apartments
+      parameters:
+        - name: city
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by city (case-insensitive contains)
+        - name: numberOfBedrooms
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Filter by exact number of bedrooms
+        - name: squareFootage
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Filter by exact square footage
+        - name: isAvailable
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Filter by availability status
+        - name: minPrice
+          in: query
+          required: false
+          schema:
+            type: number
+            format: float
+          description: Filter by minimum price
+        - name: maxPrice
+          in: query
+          required: false
+          schema:
+            type: number
+            format: float
+          description: Filter by maximum price
+        - name: sortBy
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - price
+              - numberOfBedrooms
+              - squareFootage
+          description: Field to sort by
+        - name: order
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+          description: Sort order (ascending or descending)
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: Page number for pagination
       responses:
         200:
           description: OK
