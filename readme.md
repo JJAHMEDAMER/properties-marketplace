@@ -1,7 +1,7 @@
 ## How to run the project:
 
 Clone the repository && docker compose up --build
-Wait for the web-app to run after postgres and server ar up
+Wait for the web-app to run after postgres and server containers are up
 
 links:
 WebApp: http://localhost:3000
