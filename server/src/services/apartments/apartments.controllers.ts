@@ -8,7 +8,7 @@ import {
 import { prisma } from "../../config/prisma.config";
 import { Apartments } from "@prisma/client";
 import { AppError, ZodValidationError } from "../../utils/app-error";
-import z from "zod";
+import { config } from "../../config/base";
 
 export async function getApartments(
   req: Request,
@@ -90,14 +90,6 @@ export async function getApartment(
   }
 }
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
-
 export async function addApartment(
   req: Request,
   res: Response,
@@ -115,7 +107,8 @@ export async function addApartment(
       throw new ZodValidationError(image.error);
     }
 
-    const imageUrl = `http://${"localhost:5000"}/uploads/${image.data.originalname}`;
+    const host = config.nodeEnv === "production" ? "server" : "localhost";
+    const imageUrl = `http://${host}:${config.port}/uploads/${image.data.originalname}`;
 
     const apartment = await prisma.apartments.create({
       data: { ...data.data, imageUrls: [imageUrl] },

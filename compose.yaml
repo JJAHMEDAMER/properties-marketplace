@@ -33,7 +33,7 @@ services:
       retries: 10
       start_period: 5s
     environment:
-      - NODE_ENV=production
+      - nodeEnv=production
       - PORT=5000
       - DATABASE_URL=postgresql://postgres:password@postgres:5432/nawy?schema=public
 
