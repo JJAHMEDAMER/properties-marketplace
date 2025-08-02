@@ -1,15 +1,29 @@
+"use client";
 import React from "react";
-import ApartmentCard from "./components/ApartmentCard";
 import { getApartments } from "@/api/apartments";
+import { Apartment } from "@/types/models";
+import Listing from "./components/Listing";
+import { ApartmentFilters } from "@/types/utils/filters";
+import { Filters } from "./components/Filters";
 
-export async function ApartmentsListingsPage() {
-  const apartment = await getApartments();
+export function ApartmentsListingsPage() {
+  const [apartment, setApartment] = React.useState<Apartment[] | undefined>(
+    undefined
+  );
+  const [filters, setFilters] = React.useState<ApartmentFilters>({});
+
+  React.useEffect(() => {
+    async function fetchApartment() {
+      const apartments = await getApartments(filters);
+      setApartment(apartments);
+    }
+    fetchApartment();
+  }, [filters]);
 
   return (
-    <div className="py-8 app-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-      {apartment.map((apartment) => (
-        <ApartmentCard key={apartment.id} apartment={apartment} />
-      ))}
+    <div className="space-y-4">
+      <Filters filters={filters} setFilters={setFilters} />
+      <Listing apartment={apartment} />
     </div>
   );
 }

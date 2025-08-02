@@ -1,9 +1,17 @@
 import { Apartment } from "@/types/models";
+import { ApartmentFilters } from "@/types/utils/filters";
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
 
-export async function getApartments() {
-  const res = await fetch(`${baseUrl}/apartments`);
+export async function getApartments(filters: ApartmentFilters = {}) {
+  let strFilters: Record<string, string> = {};
+
+  Object.entries(filters).forEach(([key, value]) => {
+    strFilters[key] = value?.toString();
+  });
+
+  const url = `${baseUrl}/apartments?${new URLSearchParams(strFilters)}`;
+  const res = await fetch(url);
   const apartments: Apartment[] = await res.json();
   return apartments;
 }
