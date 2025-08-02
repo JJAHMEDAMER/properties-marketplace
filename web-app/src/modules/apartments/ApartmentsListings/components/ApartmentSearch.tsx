@@ -8,20 +8,24 @@ type Props = {
 };
 
 export default function ApartmentSearch({ filters, setFilters }: Props) {
+  const [searchTerm, setSearchTerm] = React.useState<
+    ApartmentFilters["searchTerm"]
+  >(filters.searchTerm);
+
   React.useEffect(() => {
     const timeout = setTimeout(() => {
-      setFilters({ ...filters, page: 1 });
+      setFilters({ ...filters, searchTerm });
     }, 500);
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.searchTerm]);
+  }, [searchTerm]);
 
   return (
     <div className="app-container">
       <AppInput
         placeholder="Search..."
-        value={filters.searchTerm}
-        onChange={(e) => setFilters({ ...filters, searchTerm: e.target.value })}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
     </div>
   );
