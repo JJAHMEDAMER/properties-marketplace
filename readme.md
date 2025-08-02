@@ -34,7 +34,7 @@ PostgreSQL database with a single table managed via Prisma
 
 Landing page with SEO metadata and OG tags
 
-Apartments list page with filters and metadata
+Apartments list page with **filters**, **URL State Persistence** and metadata
 
 Apartment details page with **Google Maps iframe**, **Swiper** and **Dynamic Metadata**
 
