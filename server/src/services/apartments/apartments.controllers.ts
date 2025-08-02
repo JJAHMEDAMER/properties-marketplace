@@ -103,7 +103,6 @@ export async function addApartment(
   res: Response,
   next: NextFunction
 ) {
-  console.log(req.file);
   try {
     const data = apartmentSchema.safeParse(req.body);
 
@@ -124,7 +123,6 @@ export async function addApartment(
 
     return res.status(201).json({ status: "success", data: apartment });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 }

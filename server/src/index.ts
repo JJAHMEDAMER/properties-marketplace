@@ -12,7 +12,6 @@ const app = express();
 app.use(corsMiddleware);
 
 app.use(express.json());
-console.log(path.join(__dirname, "uploads"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/apartments", apartmentsRouter);
