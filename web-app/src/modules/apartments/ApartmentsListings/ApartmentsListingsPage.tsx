@@ -2,7 +2,7 @@ import React from "react";
 import ApartmentCard from "./components/ApartmentCard";
 import { getApartments } from "@/api/apartments";
 
-export default async function ApartmentsPage() {
+export async function ApartmentsListingsPage() {
   const apartment = await getApartments();
 
   return (

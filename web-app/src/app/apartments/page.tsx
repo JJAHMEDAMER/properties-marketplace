@@ -1,4 +1,4 @@
-import ApartmentsPage from "@/modules/apartments/ApartmentsPage";
+import { ApartmentsListingsPage } from "@/modules/apartments/ApartmentsListings/ApartmentsListingsPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -24,5 +24,5 @@ export const metadata: Metadata = {
 };
 
 export default function page() {
-  return <ApartmentsPage />;
+  return <ApartmentsListingsPage />;
 }
