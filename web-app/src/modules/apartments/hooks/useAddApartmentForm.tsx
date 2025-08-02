@@ -6,7 +6,7 @@ export function useAddApartmentForm(initialValues?: Apartment) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, disabled, isSubmitting, isValid },
   } = useForm<Apartment>(initialValues ? { defaultValues: initialValues } : {});
 
   const title = register("title", { required: "Title is required" });
@@ -55,11 +55,11 @@ export function useAddApartmentForm(initialValues?: Apartment) {
       (Number.isInteger(value) && !isNaN(value)) ||
       "Number of bathrooms must be an integer",
   });
-  const imageUrls = register("imageUrls", {
-    validate: (value) =>
-      (Array.isArray(value) && value.every((url) => typeof url === "string")) ||
-      "Image URLs must be an array of strings",
-  });
+  // const imageUrls = register("imageUrls", {
+  //   validate: (value) =>
+  //     (Array.isArray(value) && value.every((url) => typeof url === "string")) ||
+  //     "Image URLs must be an array of strings",
+  // });
   const squareFootage = register("squareFootage", {
     valueAsNumber: true,
     min: { value: 0, message: "Square footage cannot be negative" },
@@ -110,11 +110,13 @@ export function useAddApartmentForm(initialValues?: Apartment) {
     currency,
     numberOfBedrooms,
     numberOfBathrooms,
-    imageUrls,
+    // imageUrls,
     squareFootage,
     isAvailable,
     buildYear,
     contactEmail,
     contactPhone,
+    isDisabled: disabled || isSubmitting || !isValid,
+    isSubmitting,
   };
 }

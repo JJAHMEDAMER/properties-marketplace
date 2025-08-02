@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Modal } from "@/shared/atoms/Modal";
 import { Edit } from "lucide-react";
 import { Apartment } from "@/types/models";
+import ApartmentCreationForm from "../../components/ApartmentCreationForm";
 
 type EditApartmentListingProps = {
   apartment: Apartment;
@@ -21,7 +22,7 @@ export default function EditApartmentListing({
         Edit Listing
       </button>
       <Modal open={open} onClose={() => setOpen(false)}>
-        Hello
+        <ApartmentCreationForm apartment={apartment} />
       </Modal>
     </>
   );
