@@ -1,6 +1,6 @@
 import { Apartment } from "@/types/models";
 
-const baseUrl = "http://localhost:5000";
+const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
 
 export async function getApartments() {
   const res = await fetch(`${baseUrl}/apartments`);
