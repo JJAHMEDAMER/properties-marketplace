@@ -10,10 +10,15 @@ export function ApartmentsListingsPage() {
   const [apartment, setApartment] = React.useState<Apartment[] | undefined>(
     undefined
   );
-  const [filters, setFilters] = React.useState<ApartmentFilters>({});
+
+  const [filters, setFilters] = React.useState<ApartmentFilters>({
+    order: "asc",
+    sortBy: "createdAt",
+  });
 
   React.useEffect(() => {
     async function fetchApartment() {
+      setApartment(undefined);
       const apartments = await getApartments(filters);
       setApartment(apartments);
     }
