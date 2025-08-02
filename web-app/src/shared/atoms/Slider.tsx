@@ -11,8 +11,8 @@ export function Slider({
   minimum?: number;
   maximum?: number;
 }) {
-  const min = minMaxValue[0];
-  const max = minMaxValue[1];
+  const min = Number(minMaxValue[0].toFixed(0));
+  const max = Number(minMaxValue[1].toFixed(0));
 
   const normalize = (val: number) =>
     Math.round(((val - minimum) / (maximum - minimum)) * 100);
@@ -38,7 +38,7 @@ export function Slider({
 
   return (
     <div className="w-full p-4 bg-zinc-100 dark:bg-zinc-900 rounded-xl border border-zinc-300 dark:border-zinc-700">
-      <div className="text-center text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-4">
+      <div className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-4">
         Selected Range:{" "}
         <span className="font-bold text-zinc-900 dark:text-white">
           {formatNumber(min)} - {formatNumber(max)}

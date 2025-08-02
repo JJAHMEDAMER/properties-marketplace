@@ -1,19 +1,27 @@
 import { Select } from "@/shared/atoms/Select";
 import { Slider } from "@/shared/atoms/Slider";
+import SkeletonBox from "@/shared/skeletons/SkeletonBox";
+import { GetApartmentsResponse } from "@/types/api/apartments";
 import { ApartmentFilters } from "@/types/utils/filters";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import React, { useEffect } from "react";
 
+type SuccessResponse = Extract<GetApartmentsResponse, { status: "success" }>;
 type Props = {
   filters: ApartmentFilters;
   setFilters: React.Dispatch<React.SetStateAction<ApartmentFilters>>;
+  metadata?: SuccessResponse["metadata"];
 };
 
-export function Filters({ filters, setFilters }: Props) {
+export function Filters({ metadata, filters, setFilters }: Props) {
   return (
     <div className="app-container gap-4 flex-col md:flex-row flex h-48 items-end">
-      <div className="w-full md:w-64">
-        <MinMaxPrice filters={filters} setFilters={setFilters} />
+      <div className="w-full md:w-80">
+        <MinMaxPrice
+          metadata={metadata}
+          filters={filters}
+          setFilters={setFilters}
+        />
       </div>
       <div className="ms-auto w-full flex flex-col items-end space-y-2">
         <div className="w-full md:w-fit">
@@ -27,33 +35,46 @@ export function Filters({ filters, setFilters }: Props) {
   );
 }
 
-function MinMaxPrice({ filters, setFilters }: Props) {
-  const [minMaxValue, setMinMaxValue] = React.useState<[number, number]>([
-    filters.minPrice || 1,
-    filters.maxPrice || 5_000,
-  ]);
+function MinMaxPrice({ metadata, filters, setFilters }: Props) {
+  const [minMaxValue, setMinMaxValue] = React.useState<[number, number] | null>(
+    null
+  );
 
   const handleValueChange = (value: [number, number]) => {
     setMinMaxValue(value);
   };
 
   useEffect(() => {
+    if (!minMaxValue) return;
     const timeout = setTimeout(() => {
       setFilters({
         ...filters,
-        minPrice: minMaxValue[0],
-        maxPrice: minMaxValue[1],
+        minPrice: minMaxValue?.[0],
+        maxPrice: minMaxValue?.[1],
       });
     }, 150);
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [minMaxValue]);
 
+  if (!metadata) {
+    return (
+      <div className="h-28 rounded-2xl overflow-hidden">
+        <SkeletonBox />
+      </div>
+    );
+  }
+
   return (
     <Slider
-      minimum={1}
-      maximum={5_000}
-      minMaxValue={minMaxValue}
+      minimum={metadata?.priceRange.min || 1}
+      maximum={metadata?.priceRange.max || 5_000}
+      minMaxValue={
+        minMaxValue || [
+          metadata?.priceRange.min || 1,
+          metadata?.priceRange.max || 5_000,
+        ]
+      }
       onValueChange={handleValueChange}
     />
   );

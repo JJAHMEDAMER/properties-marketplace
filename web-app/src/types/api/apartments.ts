@@ -8,6 +8,7 @@ export type GetApartmentsResponse =
         count: number;
         page: number;
         numberOfPages: number;
+        priceRange: { min: number; max: number };
       };
     }
   | {

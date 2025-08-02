@@ -81,11 +81,23 @@ export async function getApartments(
     });
 
     const count = await prisma.apartments.count({ where });
+    const priceRange = await prisma.apartments.aggregate({
+      _min: {
+        price: true,
+      },
+      _max: {
+        price: true,
+      },
+    });
+
+    const minPrice = priceRange._min.price ?? 0;
+    const maxPrice = priceRange._max.price ?? 0;
 
     const metadata = {
       count,
       page: validatedFilters.page,
       numberOfPages: Math.ceil(count / 10),
+      priceRange: { min: minPrice, max: maxPrice },
     };
 
     return res.status(200).json({

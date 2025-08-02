@@ -14,8 +14,7 @@ export function ApartmentsListingsPage() {
   const [apartment, setApartment] = React.useState<Apartment[] | undefined>(
     undefined
   );
-  const [pagination, setPagination] =
-    React.useState<SuccessResponse["metadata"]>();
+  const [metadata, setMetadata] = React.useState<SuccessResponse["metadata"]>();
 
   const search = useSearchParams();
   const searchObj = Object.fromEntries(search.entries());
@@ -38,7 +37,7 @@ export function ApartmentsListingsPage() {
     async function fetchApartment() {
       setApartment(undefined);
       const { apartments, metadata } = await getApartments(filters);
-      setPagination(metadata);
+      setMetadata(metadata);
       setApartment(apartments);
       window.history.pushState(
         null,
@@ -53,11 +52,11 @@ export function ApartmentsListingsPage() {
 
   return (
     <div className="space-y-4 py-6 md:py-8">
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters metadata={metadata} filters={filters} setFilters={setFilters} />
       <ApartmentSearch filters={filters} setFilters={setFilters} />
       <div className="w-fit mx-auto mt-16 md:mt-0">
         <Pagination
-          pagination={pagination}
+          pagination={metadata}
           filters={filters}
           setFilters={setFilters}
         />
