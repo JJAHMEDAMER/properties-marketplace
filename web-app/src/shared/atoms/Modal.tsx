@@ -46,7 +46,7 @@ export function Modal({ open, onClose, children }: ModalProps) {
       />
 
       <div
-        className={`relative z-10 w-full max-w-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-xl shadow-lg transition-all duration-300 transform ${
+        className={`relative z-10 w-full max-w-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-xl shadow-lg transition-all duration-300 transform max-h-[90svh] overflow-y-scroll ${
           open
             ? "opacity-100 scale-100 translate-y-0"
             : "opacity-0 scale-95 translate-y-4"
