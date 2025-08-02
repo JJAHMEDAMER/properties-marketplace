@@ -201,7 +201,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Apartment"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    $ref: "#/components/schemas/Apartment"
+
     delete:
       tags:
         - Apartments
