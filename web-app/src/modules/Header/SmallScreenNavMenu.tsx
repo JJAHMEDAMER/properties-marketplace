@@ -1,10 +1,17 @@
 "use client";
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect } from "react";
 
 export default function SmallScreenNavMenu() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   return (
     <>
       <button
