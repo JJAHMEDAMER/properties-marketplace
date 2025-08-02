@@ -5,8 +5,9 @@ import { useAddApartmentForm } from "../hooks/useAddApartmentForm";
 import AppInput from "@/shared/atoms/AppInput";
 import { SubmitHandler } from "react-hook-form";
 import { Apartment } from "@/types/models";
-import { updateApartment } from "@/api/apartments";
+import { createApartment, updateApartment } from "@/api/apartments";
 import { Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type ApartmentCreationFormProps = {
   apartment?: Apartment;
@@ -15,11 +16,18 @@ type ApartmentCreationFormProps = {
 export default function ApartmentCreationForm({
   apartment,
 }: ApartmentCreationFormProps) {
+  const router = useRouter();
   const { handleSubmit, errors, isDisabled, isSubmitting, ...registers } =
     useAddApartmentForm(apartment);
 
   const submit: SubmitHandler<Apartment> = async (data) => {
-    await updateApartment(data);
+    if (apartment) {
+      await updateApartment(data);
+      router.refresh();
+    } else {
+      const { data: apartment } = await createApartment(data);
+      router.push("/apartments/" + apartment.id);
+    }
   };
 
   return (

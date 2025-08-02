@@ -20,7 +20,7 @@ export async function createApartment(apartment: Apartment) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(apartment),
   });
-  const newApartment: Apartment = await res.json();
+  const newApartment: { status: string; data: Apartment } = await res.json();
   return newApartment;
 }
 
