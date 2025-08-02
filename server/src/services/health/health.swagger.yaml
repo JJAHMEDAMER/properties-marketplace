@@ -1,0 +1,20 @@
+tags:
+  - name: Health
+    description: Operations related to health
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Get health status
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "healthy"
