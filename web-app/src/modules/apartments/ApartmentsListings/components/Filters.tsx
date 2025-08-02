@@ -46,6 +46,7 @@ function MinMaxPrice({ filters, setFilters }: Props) {
       });
     }, 150);
     return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [minMaxValue]);
 
   return (

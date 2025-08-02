@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 
 interface FileUploadProps {
   label?: string;
@@ -51,7 +52,9 @@ export default function FileUpload({
       />
 
       {preview && (
-        <img
+        <Image
+          width={300}
+          height={300}
           src={preview}
           alt="Preview"
           className="mt-2 max-h-48 w-auto rounded-lg border border-gray-200 dark:border-zinc-700"

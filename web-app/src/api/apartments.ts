@@ -5,7 +5,7 @@ import { ApartmentFilters } from "@/types/utils/filters";
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
 
 export async function getApartments(filters: ApartmentFilters = {}) {
-  let strFilters: Record<string, string> = {};
+  const strFilters: Record<string, string> = {};
 
   Object.entries(filters).forEach(([key, value]) => {
     strFilters[key] = value?.toString();
