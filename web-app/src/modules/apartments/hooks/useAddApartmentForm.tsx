@@ -6,8 +6,11 @@ export function useAddApartmentForm(initialValues?: Apartment) {
   const {
     register,
     handleSubmit,
-    formState: { errors, disabled, isSubmitting, isValid },
-  } = useForm<Apartment>(initialValues ? { defaultValues: initialValues } : {});
+    formState: { errors, disabled, isSubmitting, isValid, isValidating },
+  } = useForm<Apartment>({
+    ...(initialValues ? { defaultValues: initialValues } : {}),
+    mode: "onTouched",
+  });
 
   const title = register("title", { required: "Title is required" });
   const description = register("description");
