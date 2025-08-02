@@ -99,7 +99,7 @@ export async function getApartment(
 
     if (!apartment) throw new AppError("Apartment not found", 404);
 
-    return res.status(200).json(apartment);
+    return res.status(200).json({ status: "success", data: apartment });
   } catch (error) {
     next(error);
   }

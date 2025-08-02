@@ -176,11 +176,13 @@ export default function ApartmentCreationForm({
         />
       </div>
 
-      <FileUpload
-        label="Image"
-        imageProps={registers.image}
-        error={errors.image?.message}
-      />
+      {!apartment && (
+        <FileUpload
+          label="Image"
+          imageProps={registers.image}
+          error={errors.image?.message}
+        />
+      )}
 
       {/* Is Available */}
       <label className="flex cursor-pointer items-center space-x-3">

@@ -1,6 +1,7 @@
 import { Apartment } from "@/types/models";
 import { ApartmentForm } from "@/types/utils/ApartmentFormInput";
 import { ApartmentFilters } from "@/types/utils/filters";
+import { notFound } from "next/navigation";
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
 
@@ -19,8 +20,15 @@ export async function getApartments(filters: ApartmentFilters = {}) {
 
 export async function getApartment(id: Apartment["id"]) {
   const res = await fetch(`${baseUrl}/apartments/${id}`);
-  const apartment: Apartment = await res.json();
-  return apartment;
+  const apartment:
+    | { status: "success"; data: Apartment }
+    | { status: "error"; message: string } = await res.json();
+
+  if (apartment.status === "error") {
+    return notFound();
+  }
+
+  return apartment.data;
 }
 
 export async function createApartment(apartment: ApartmentForm) {

@@ -97,7 +97,9 @@ export function useAddApartmentForm(initialValues?: Apartment) {
   });
   const contactPhone = register("contactPhone");
 
-  const image = register("image", { required: "Image is required" });
+  const image = register("image", {
+    required: initialValues ? false : "Image is required",
+  });
 
   return {
     register,
