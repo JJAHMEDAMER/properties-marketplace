@@ -1,5 +1,5 @@
 import Footer from "@/shared/Footer";
-import Header from "@/shared/Header";
+import { Header } from "@/modules/Header";
 import React from "react";
 
 export default function MainLayout({
