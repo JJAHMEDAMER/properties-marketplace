@@ -80,7 +80,19 @@ export async function getApartments(
       take: 10,
     });
 
-    return res.status(200).json(apartments);
+    const count = await prisma.apartments.count({ where });
+
+    return res
+      .status(200)
+      .json({
+        status: "success",
+        metadata: {
+          count,
+          page: validatedFilters.page,
+          numberOfPages: Math.ceil(count / 10),
+        },
+        data: apartments,
+      });
   } catch (error) {
     next(error);
   }
