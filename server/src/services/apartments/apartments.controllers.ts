@@ -116,7 +116,7 @@ export async function addApartment(
       throw new ZodValidationError(image.error);
     }
 
-    const imageUrl = `http://${"localhost:3000"}/uploads/${image.data.originalname}`;
+    const imageUrl = `http://${"localhost:5000"}/uploads/${image.data.originalname}`;
 
     const apartment = await prisma.apartments.create({
       data: { ...data.data, imageUrls: [imageUrl] },
