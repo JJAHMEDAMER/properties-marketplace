@@ -86,7 +86,22 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Apartment"
+                  type: object
+                  properties:
+                    status: string
+                    metadata:
+                      type: object
+                      properties:
+                        count:
+                          type: integer
+                        page:
+                          type: integer
+                        numberOfPages:
+                          type: integer
+                    data:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/Apartment"
     post:
       tags:
         - Apartments
