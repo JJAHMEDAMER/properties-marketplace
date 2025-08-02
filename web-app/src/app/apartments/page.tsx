@@ -1,6 +1,8 @@
 import { ApartmentsListingsPage } from "@/modules/apartments/ApartmentsListings/ApartmentsListingsPage";
 import { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Explore Our Exclusive Apartments | Find Your Dream Home",
   description:

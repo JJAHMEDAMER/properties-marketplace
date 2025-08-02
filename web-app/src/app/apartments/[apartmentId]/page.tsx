@@ -7,6 +7,7 @@ type Props = {
   params: Promise<{ apartmentId: string }>;
 };
 
+export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { apartmentId } = await params;
   const product = await getApartment(Number(apartmentId));
