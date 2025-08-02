@@ -9,10 +9,13 @@ import { Pagination } from "./components/Pagination";
 import ApartmentSearch from "./components/ApartmentSearch";
 import { useSearchParams } from "next/navigation";
 
+type SuccessResponse = Awaited<ReturnType<typeof getApartments>>;
 export function ApartmentsListingsPage() {
   const [apartment, setApartment] = React.useState<Apartment[] | undefined>(
     undefined
   );
+  const [pagination, setPagination] =
+    React.useState<SuccessResponse["metadata"]>();
 
   const search = useSearchParams();
   const searchObj = Object.fromEntries(search.entries());
@@ -35,6 +38,7 @@ export function ApartmentsListingsPage() {
     async function fetchApartment() {
       setApartment(undefined);
       const { apartments, metadata } = await getApartments(filters);
+      setPagination(metadata);
       setApartment(apartments);
       window.history.pushState(
         null,
@@ -52,7 +56,11 @@ export function ApartmentsListingsPage() {
       <Filters filters={filters} setFilters={setFilters} />
       <ApartmentSearch filters={filters} setFilters={setFilters} />
       <div className="w-fit mx-auto mt-16 md:mt-0">
-        <Pagination filters={filters} setFilters={setFilters} />
+        <Pagination
+          pagination={pagination}
+          filters={filters}
+          setFilters={setFilters}
+        />
       </div>
       <Listing apartment={apartment} />
     </div>

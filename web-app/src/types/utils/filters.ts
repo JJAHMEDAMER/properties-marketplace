@@ -1,3 +1,7 @@
+import { GetApartmentsResponse } from "../api/apartments";
+
+type SuccessResponse = Extract<GetApartmentsResponse, { status: "success" }>;
+
 export type ApartmentFilters = Partial<{
   city: string;
   numberOfBedrooms: number;
@@ -9,4 +13,5 @@ export type ApartmentFilters = Partial<{
   order: "asc" | "desc";
   page: number;
   searchTerm: string;
+  pagination: SuccessResponse["metadata"];
 }>;
