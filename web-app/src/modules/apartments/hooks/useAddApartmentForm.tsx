@@ -1,15 +1,14 @@
 "use client";
 import { Apartment } from "@/types/models";
 import { useForm } from "react-hook-form";
-
-type ApartmentInput = Apartment & { image?: File | null };
+import { ApartmentForm } from "@/types/utils/ApartmentFormInput";
 
 export function useAddApartmentForm(initialValues?: Apartment) {
   const {
     register,
     handleSubmit,
     formState: { errors, disabled, isSubmitting, isValid },
-  } = useForm<ApartmentInput>({
+  } = useForm<ApartmentForm>({
     ...(initialValues ? { defaultValues: initialValues } : {}),
     mode: "onTouched",
   });

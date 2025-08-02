@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useAddApartmentForm } from "../hooks/useAddApartmentForm";
+import { ApartmentForm } from "@/types/utils/ApartmentFormInput";
 import AppInput from "@/shared/atoms/AppInput";
 import { SubmitHandler } from "react-hook-form";
 import { Apartment } from "@/types/models";
@@ -22,7 +23,7 @@ export default function ApartmentCreationForm({
   const { handleSubmit, errors, isDisabled, isSubmitting, ...registers } =
     useAddApartmentForm(apartment);
 
-  const submit: SubmitHandler<Apartment> = async (data) => {
+  const submit: SubmitHandler<ApartmentForm> = async (data) => {
     if (apartment) {
       await updateApartment(data);
       router.refresh();

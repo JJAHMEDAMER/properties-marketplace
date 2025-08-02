@@ -1,4 +1,5 @@
 import { Apartment } from "@/types/models";
+import { ApartmentForm } from "@/types/utils/ApartmentFormInput";
 import { ApartmentFilters } from "@/types/utils/filters";
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
@@ -22,9 +23,7 @@ export async function getApartment(id: Apartment["id"]) {
   return apartment;
 }
 
-export async function createApartment(
-  apartment: Apartment & { image: FileList }
-) {
+export async function createApartment(apartment: ApartmentForm) {
   const { image, ...restOfApartmentData } = apartment;
 
   const formData = new FormData();
