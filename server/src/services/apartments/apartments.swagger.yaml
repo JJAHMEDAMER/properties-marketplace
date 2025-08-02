@@ -84,24 +84,30 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    status: string
-                    metadata:
-                      type: object
-                      properties:
-                        count:
-                          type: integer
-                        page:
-                          type: integer
-                        numberOfPages:
-                          type: integer
-                    data:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/Apartment"
+                type: object
+                properties:
+                  status:
+                    type: string
+                  metadata:
+                    type: object
+                    properties:
+                      count:
+                        type: integer
+                      page:
+                        type: integer
+                      numberOfPages:
+                        type: integer
+                      priceRange:
+                        type: object
+                        properties:
+                          min:
+                            type: number
+                          max:
+                            type: number
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Apartment"
     post:
       tags:
         - Apartments
