@@ -6,6 +6,7 @@ import Listing from "./components/Listing";
 import { ApartmentFilters } from "@/types/utils/filters";
 import { Filters } from "./components/Filters";
 import { Pagination } from "./components/Pagination";
+import ApartmentSearch from "./components/ApartmentSearch";
 
 export function ApartmentsListingsPage() {
   const [apartment, setApartment] = React.useState<Apartment[] | undefined>(
@@ -30,6 +31,7 @@ export function ApartmentsListingsPage() {
   return (
     <div className="space-y-4 py-6 md:py-8">
       <Filters filters={filters} setFilters={setFilters} />
+      <ApartmentSearch filters={filters} setFilters={setFilters} />
       <div className="w-fit mx-auto mt-16 md:mt-0">
         <Pagination filters={filters} setFilters={setFilters} />
       </div>

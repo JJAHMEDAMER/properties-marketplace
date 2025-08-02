@@ -9,7 +9,7 @@ export default function AppInput({ label, error, ...rest }: AppInputProps) {
   return (
     <div className="w-full">
       {label && (
-        <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block mb-1 text-sm font-medium text-zinc-700 dark:text-zinc-300">
           {label}
         </label>
       )}
@@ -17,9 +17,9 @@ export default function AppInput({ label, error, ...rest }: AppInputProps) {
         {...rest}
         className={`w-full px-4 py-2 rounded-md border text-sm outline-none
           transition-colors duration-200
-          bg-white dark:bg-gray-800
-          text-gray-900 dark:text-gray-100
-          border-gray-300 dark:border-gray-600
+          bg-white dark:bg-zinc-800
+          text-zinc-900 dark:text-zinc-100
+          border-zinc-300 dark:border-zinc-600
           focus:ring-2 focus:ring-blue-500 focus:border-blue-500
           ${error ? "border-pink-500 focus:ring-pink-500" : ""}
         `}

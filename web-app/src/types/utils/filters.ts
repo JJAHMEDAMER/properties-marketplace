@@ -8,4 +8,5 @@ export type ApartmentFilters = Partial<{
   sortBy: "price" | "createdAt" | "numberOfBedrooms";
   order: "asc" | "desc";
   page: number;
+  searchTerm: string;
 }>;

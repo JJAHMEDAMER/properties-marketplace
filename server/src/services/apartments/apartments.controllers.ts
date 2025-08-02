@@ -21,16 +21,31 @@ export async function getApartments(
     if (!query.success) {
       throw new ZodValidationError(query.error);
     }
-    // Now, `validatedFilters` contains the parsed and type-safe query parameters
     const validatedFilters = query.data;
 
-    // Construct the 'where' object for Prisma query
     const where: any = {};
+
+    if (validatedFilters.searchTerm) {
+      where.OR = [
+        {
+          title: { contains: validatedFilters.searchTerm, mode: "insensitive" },
+        },
+        {
+          city: { contains: validatedFilters.searchTerm, mode: "insensitive" },
+        },
+        {
+          address: {
+            contains: validatedFilters.searchTerm,
+            mode: "insensitive",
+          },
+        },
+      ];
+    }
 
     if (validatedFilters.city) {
       where.city = {
         contains: validatedFilters.city,
-        mode: "insensitive", // Case-insensitive search for city
+        mode: "insensitive",
       };
     }
 

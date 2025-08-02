@@ -24,6 +24,7 @@ export const multerFileSchema = z.object({
 });
 
 export const apartmentFilterSchema = z.object({
+  searchTerm: z.string().optional(),
   page: z.preprocess(
     (val) => (val ? parseInt(String(val), 10) : undefined),
     z
