@@ -34,7 +34,7 @@ export function ApartmentsListingsPage() {
 
     async function fetchApartment() {
       setApartment(undefined);
-      const apartments = await getApartments(filters);
+      const { apartments, metadata } = await getApartments(filters);
       setApartment(apartments);
       window.history.pushState(
         null,

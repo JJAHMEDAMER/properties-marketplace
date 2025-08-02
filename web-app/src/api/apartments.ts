@@ -1,3 +1,4 @@
+import { GetApartmentsResponse } from "@/types/api/apartments";
 import { Apartment } from "@/types/models";
 import { ApartmentForm } from "@/types/utils/ApartmentFormInput";
 import { ApartmentFilters } from "@/types/utils/filters";
@@ -14,8 +15,13 @@ export async function getApartments(filters: ApartmentFilters = {}) {
 
   const url = `${baseUrl}/apartments?${new URLSearchParams(strFilters)}`;
   const res = await fetch(url);
-  const apartments: Apartment[] = await res.json();
-  return apartments;
+  const apartments: GetApartmentsResponse = await res.json();
+
+  if (apartments.status === "error") {
+    return notFound();
+  }
+
+  return { apartments: apartments.data, metadata: apartments.metadata };
 }
 
 export async function getApartment(id: Apartment["id"]) {
