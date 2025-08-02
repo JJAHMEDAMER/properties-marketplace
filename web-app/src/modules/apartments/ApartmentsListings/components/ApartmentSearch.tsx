@@ -13,6 +13,7 @@ export default function ApartmentSearch({ filters, setFilters }: Props) {
   >(filters.searchTerm);
 
   React.useEffect(() => {
+    if (searchTerm === undefined) return;
     const timeout = setTimeout(() => {
       setFilters({ ...filters, searchTerm });
     }, 500);

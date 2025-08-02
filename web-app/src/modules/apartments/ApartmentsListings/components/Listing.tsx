@@ -18,6 +18,16 @@ export default function Listing({ apartment }: ListingProps) {
     );
   }
 
+  if (apartment.length === 0) {
+    return (
+      <div className="app-container">
+        <div className="h-96 flex items-center justify-center text-gray-500 dark:text-gray-400 font-semibold">
+          No apartments found
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="app-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
       {apartment.map((apartment) => (

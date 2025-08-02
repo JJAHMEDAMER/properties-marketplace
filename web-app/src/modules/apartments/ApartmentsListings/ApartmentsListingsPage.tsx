@@ -7,14 +7,13 @@ import { ApartmentFilters } from "@/types/utils/filters";
 import { Filters } from "./components/Filters";
 import { Pagination } from "./components/Pagination";
 import ApartmentSearch from "./components/ApartmentSearch";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export function ApartmentsListingsPage() {
   const [apartment, setApartment] = React.useState<Apartment[] | undefined>(
     undefined
   );
 
-  const router = useRouter();
   const search = useSearchParams();
   const searchObj = Object.fromEntries(search.entries());
   const [filters, setFilters] = React.useState<ApartmentFilters>({
@@ -30,7 +29,7 @@ export function ApartmentsListingsPage() {
       if (value === "" || value === undefined) {
         delete filters[key as keyof ApartmentFilters];
       }
-      newFilters[key] = value.toString();
+      newFilters[key] = value?.toString();
     });
 
     async function fetchApartment() {
@@ -43,7 +42,9 @@ export function ApartmentsListingsPage() {
         `?${new URLSearchParams(newFilters)}`
       );
     }
-    fetchApartment();
+
+    const timeout = setTimeout(() => fetchApartment(), 200);
+    return () => clearTimeout(timeout);
   }, [filters]);
 
   return (
